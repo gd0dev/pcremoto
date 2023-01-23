@@ -1,0 +1,72 @@
+<canvas width="600" height="400"></canvas>
+<br>
+Escolha uma cor <input type="color">
+<button id="myButton" onclick="selecionaBorracha()">Clique para selecionar a borracha</button>
+<button id="myButton2" onclick="deselecionaBorracha()">Clique para sair do modo borracha</button>
+<script>
+  var tela = document.querySelector('canvas');
+  var cor = document.querySelector('input');
+  var myButton = document.getElementById("myButton");
+  var myButton2 = document.getElementById("myButton2");
+  var pincel = tela.getContext('2d');
+  pincel.fillStyle = 'grey';
+  pincel.fillRect(0, 0, 600, 400);
+  var desenha = false;
+  var apaga = false;
+  var modo = ['pincel', 'borracha'];
+  var seletor = 'pincel';
+
+
+  function desenhaCirculo(evento) {
+
+    if (desenha) {
+    if (seletor == modo[1] ) {
+      var x = evento.pageX - tela.offsetLeft;
+      var y = evento.pageY - tela.offsetTop;
+      pincel.fillStyle = 'grey';
+      pincel.beginPath();
+      pincel.arc(x, y, 10, 0, 2 * 3.14);
+      pincel.fill(); 
+    }
+    
+    if (seletor == modo[0]) {
+      var x = evento.pageX - tela.offsetLeft;
+      var y = evento.pageY - tela.offsetTop;
+      var color = cor.value;
+      pincel.fillStyle = color;
+      pincel.beginPath();
+      pincel.arc(x, y, 10, 0, 2 * 3.14);
+      pincel.fill();
+    }
+  }
+
+}
+  tela.onmousemove = desenhaCirculo;
+  tela.onmousedown = habilitaDesenhar;
+  tela.onmouseup = desabilitaDesenhar;
+
+  function teste() {
+    alert("teste")
+  }
+
+  function habilitaDesenhar() {
+    desenha = true;
+  }
+
+  function desabilitaDesenhar() {
+    desenha = false;    
+  }
+
+
+  function selecionaBorracha() {
+    seletor = 'borracha'
+
+  }
+
+  function deselecionaBorracha() {
+    seletor = 'pincel';
+  }
+
+      
+ 
+</script>
